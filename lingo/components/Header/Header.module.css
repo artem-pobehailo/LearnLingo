@@ -1,0 +1,75 @@
+.header {
+  position: relative;
+  max-width: 1440px;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  align-items: center;
+  text-align: center;
+  padding-left: 128px;
+  padding-right: 128px;
+}
+.logo {
+  display: flex;
+  gap: 8px;
+
+  text-decoration: none;
+  align-items: center;
+}
+.logotext {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: #121417;
+}
+
+.navPage {
+  display: flex;
+  gap: 28px;
+}
+.active {
+  color: #9fb7ce;
+}
+.headerAuth {
+  display: flex;
+  gap: 16px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.headerLogin {
+  display: flex;
+  gap: 8px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.25;
+  color: #121417;
+  border: none;
+  background: none;
+
+  fill: none;
+  stroke: #9fb7ce;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  align-items: center;
+}
+
+.headerRegistr {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+
+  line-height: 1.25;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding-block: 14px;
+  padding-inline: 39px;
+  width: 166px;
+  height: 48px;
+  background: #121417;
+}
