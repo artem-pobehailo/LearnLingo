@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
 import './globals.css';
 import Herder from '@/components/Header/Header';
-import TanStackProvider from '@/components/Header/TanStackProvider/TanStackProvider';
+import TanStackProvider from '@/components/TanStackProvider/TanStackProvider';
+import Footer from '@/components/Footer/Footer';
 
 const geistSans = Roboto({
   variable: '--font-geist-sans',
@@ -29,6 +30,7 @@ export default function RootLayout({
         <TanStackProvider>
           <Herder />
           {children}
+          <Footer />
         </TanStackProvider>
       </body>
     </html>

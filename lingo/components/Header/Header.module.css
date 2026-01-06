@@ -5,9 +5,7 @@
   justify-content: space-between;
   margin: 0 auto;
   align-items: center;
-  text-align: center;
-  padding-left: 128px;
-  padding-right: 128px;
+  padding: 0 128px;
 }
 .logo {
   display: flex;
@@ -56,6 +54,7 @@
   stroke-linecap: round;
   stroke-linejoin: round;
   align-items: center;
+  transition: background-color 0.2s ease;
 }
 
 .headerRegistr {
@@ -72,4 +71,19 @@
   width: 166px;
   height: 48px;
   background: #121417;
+  transition: background-color 0.2s ease;
+}
+
+.headerLogin:hover,
+.headerLogin:focus-visible {
+  background: rgba(159, 183, 206, 0.2);
+  border-radius: 12px;
+}
+.headerRegistr:hover,
+.headerRegistr:focus-visible {
+  background: #8a8a89;
+}
+.headerRegistr:hover,
+.headerRegistr:focus-visible {
+  background: #8a8a89;
 }
