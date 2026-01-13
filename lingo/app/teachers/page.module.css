@@ -1,0 +1,15 @@
+.teacherSection {
+  background: #f8f8f8;
+  width: 1440px;
+
+  margin: 0 auto;
+}
+.filtersCard {
+  margin-left: 100px;
+}
+
+.buttonCard {
+  display: flex;
+  justify-content: center;
+  margin-top: 64px;
+}

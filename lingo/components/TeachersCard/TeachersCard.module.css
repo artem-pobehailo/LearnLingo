@@ -1,0 +1,236 @@
+.card {
+  display: flex;
+  width: 1184px;
+  margin: 0 auto;
+  padding: 24px 0;
+  gap: 48px;
+  background: #fff;
+}
+.avatar {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  flex-shrink: 0;
+}
+.cardFoto {
+  border-radius: 100px;
+  width: 96px;
+  height: 96px;
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  z-index: 2;
+}
+.avatar::after {
+  content: '';
+  position: absolute;
+  border: 3px solid #fbe9ba;
+  border-radius: 100px;
+  width: 120px;
+  height: 120px;
+  background: #fff;
+  z-index: 1;
+}
+.iconFoto {
+  position: absolute;
+  top: 21px;
+  left: 86px;
+  z-index: 3;
+}
+
+.cardR {
+  display: flex;
+  flex-direction: column;
+}
+.cardHeader {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 8px;
+}
+.cardText {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+
+  line-height: 1.5;
+  color: #121417;
+
+  white-space: nowrap;
+}
+
+.cardTextGray {
+  color: #8a8a89;
+  padding-right: 197px;
+}
+.cardTextGreen {
+  color: #38cd3e;
+}
+
+.cardList {
+  display: flex;
+  gap: 16px;
+  padding-right: 64px;
+}
+.cardItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+}
+
+.cardItem:not(:last-child)::after {
+  content: '|';
+  margin-left: 8px;
+  color: #121417;
+  opacity: 0.2;
+}
+.iconlogo {
+  stroke: black;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+.favoriteBtn {
+  border: none;
+  background-color: transparent;
+}
+
+.favoriteIcon {
+  stroke-width: 2px;
+  stroke: #121417;
+  fill: none;
+  transition:
+    fill 0.25s ease,
+    stroke 0.25s ease;
+}
+
+.favoriteBtn:hover .favoriteIcon {
+  fill: #f4c550;
+  stroke-width: 1px;
+  stroke: #f4c550;
+}
+
+.favoriteBtn.isActive .favoriteIcon {
+  fill: #f4c550;
+  stroke-width: 1px;
+  stroke: #f4c550;
+}
+
+.titelName {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 24px;
+
+  line-height: 1;
+  color: #121417;
+  margin-bottom: 32px;
+}
+.textCard {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.cardTextLine {
+  text-decoration: underline;
+  color: #121417;
+}
+
+.cardButton {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+
+  line-height: 1.5;
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  color: #121417;
+  border: none;
+  margin-bottom: 32px;
+  background-color: transparent;
+}
+.cardButton:hover {
+  opacity: 0.8;
+}
+.cardTextMore {
+  white-space: wrap;
+  margin-bottom: 32px;
+}
+
+.extraInfo {
+  margin-bottom: 32px;
+}
+.reviewsList {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin-bottom: 32px;
+}
+.reviewItem {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.reviewItemDiv {
+  display: flex;
+  gap: 12px;
+}
+.cardFotoReview {
+  border-radius: 100px;
+  width: 44px;
+  height: 44px;
+}
+.cardFotoName {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.reviewReting {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* прихований стан */
+/* .expandWrapper {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition:
+    max-height 0.4s ease,
+    opacity 0.3s ease;
+} */
+
+/* відкритий стан */
+/* .open {
+  max-height: 1000px; 
+  opacity: 1;
+} */
+
+/* внутрішній контент */
+/* .expandContent {
+  padding-top: 16px;
+} */
+
+.levelList {
+  display: flex;
+  gap: 8px;
+}
+
+.levelButton {
+  border: 1px solid rgba(18, 20, 23, 0.2);
+  border-radius: 35px;
+  padding: 8px 12px;
+  background-color: transparent;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.levelButtonActive {
+  background-color: #9fb7ce;
+  border-color: #9fb7ce;
+}

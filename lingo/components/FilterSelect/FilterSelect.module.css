@@ -1,0 +1,29 @@
+.filterLabelWraper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filterLabel {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+
+  line-height: 1.28571;
+  color: #8a8a89;
+}
+
+.filter__control {
+  height: 48px;
+  min-width: 124px;
+  border-radius: 14px;
+  font-size: 18px;
+}
+
+.filter__menu {
+  border-radius: 14px;
+}
+
+.filter__option--is-focused {
+  background-color: #f8f8f8;
+}

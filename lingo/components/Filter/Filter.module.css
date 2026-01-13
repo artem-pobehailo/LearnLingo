@@ -1,0 +1,44 @@
+.filters {
+  display: flex;
+  gap: 20px;
+  padding: 32px;
+}
+.filtersLabel {
+  display: flex;
+  flex-direction: column;
+}
+.label {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+
+  line-height: 1.28571;
+  color: #8a8a89;
+  padding-bottom: 8px;
+}
+
+.filterSelect {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  border-radius: 14px;
+  width: 221px;
+  height: 48px;
+  background-color: #fff;
+
+  padding-left: 18px;
+
+  font-size: 18px;
+  color: #8a8a89;
+
+  background-image: url('/Vector.svg');
+
+  background-repeat: no-repeat;
+  background-position: right 18px center;
+  background-size: 10px 5px;
+}
+
+.filterSelect:has(option:not([value='']):checked) {
+  color: #121417;
+}

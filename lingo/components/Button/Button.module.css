@@ -1,0 +1,29 @@
+/* src/components/Button.module.css */
+.button {
+  padding: 16px 48px;
+  border-radius: 12px;
+  border: none;
+  font: inherit;
+  cursor: pointer;
+
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+
+  line-height: 1.55556;
+  color: #121417;
+}
+
+.primary {
+  background-color: #9fb7ce;
+  color: black;
+}
+.primary:hover {
+  background-color: #8a8a89;
+  color: black;
+}
+
+.secondary {
+  background-color: #8a8a89;
+  color: black;
+}

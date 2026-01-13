@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation';
 import css from './Header.module.css';
 import Link from 'next/link';
 
-export default function Herder() {
+export default function Header() {
   const pathname = usePathname();
   return (
     <header className={css.header}>
