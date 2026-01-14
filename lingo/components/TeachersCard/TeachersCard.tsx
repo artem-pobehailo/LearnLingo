@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import css from './TeachersCard.module.css';
 import Button from '../Button/Button';
+import Modal from '../Modal/Modal';
+import Book from '../Book/Book';
 
 const mockReviews = [
   {
@@ -21,11 +23,26 @@ const mockReviews = [
   },
 ];
 
+const teacher = {
+  name: 'Jane Smith',
+  avatar: '/block.png',
+  levels: [
+    'A1 Beginner',
+    'A2 Elementary',
+    'B1 Intermediate',
+    'B2 Upper-Intermediate',
+  ],
+};
+
 export default function TeachersCard() {
   const [isOpen, setIsOpen] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [activeLevel, setActiveLevel] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const openModal = () => setIsModalOpen(true);
+
+  const closeModal = () => setIsModalOpen(false);
   return (
     <div className={css.card}>
       <div className={css.avatar}>
@@ -164,10 +181,13 @@ export default function TeachersCard() {
               <Button
                 variant="primary"
                 text="Book trial lesson"
-                onClick={() => {
-                  console.log('Open modal for booking lesson');
-                }}
+                onClick={openModal}
               />
+              {isModalOpen && (
+                <Modal onClose={closeModal}>
+                  <Book teacher={teacher} />
+                </Modal>
+              )}
             </div>
           )}
         </div>

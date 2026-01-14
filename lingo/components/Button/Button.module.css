@@ -12,18 +12,16 @@
 
   line-height: 1.55556;
   color: #121417;
-}
-
-.primary {
   background-color: #9fb7ce;
   color: black;
 }
-.primary:hover {
+
+.primary:hover,
+.secondary:hover {
   background-color: #8a8a89;
   color: black;
 }
 
 .secondary {
-  background-color: #8a8a89;
-  color: black;
+  padding: 16px 215px;
 }

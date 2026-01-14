@@ -1,0 +1,133 @@
+.bookModal {
+  display: flex;
+  width: 600px;
+  flex-direction: column;
+  justify-content: center;
+  padding: 64px;
+}
+.modal {
+  margin-bottom: 40px;
+}
+
+.titel {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 40px;
+
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: #121417;
+  margin-bottom: 20px;
+}
+.text {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+
+  line-height: 1.375;
+  color: rgba(18, 20, 23, 0.8);
+  margin-bottom: 20px;
+}
+.review {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 40px;
+}
+.cardFoto {
+  border-radius: 100px;
+  width: 44px;
+  height: 44px;
+}
+.cardName {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.cardTextGray {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+
+  line-height: 1.33333;
+  color: #8a8a89;
+}
+.cardText {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+
+  line-height: 1.5;
+  color: #121417;
+}
+
+.subTitel {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 24px;
+
+  line-height: 1.33333;
+  color: #121417;
+  margin-bottom: 20px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+
+  line-height: 1.375;
+
+  color: #121417;
+}
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+
+  line-height: 1.375;
+
+  color: #121417;
+  margin-bottom: 40px;
+}
+.item label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.item input[type='radio'] {
+  accent-color: #9fb7ce;
+
+  width: 18px;
+  height: 18px;
+}
+.item label:hover {
+  color: #9fb7ce;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.inputl {
+  display: flex;
+  border: 1px solid rgba(18, 20, 23, 0.1);
+  border-radius: 12px;
+  padding-left: 18px;
+  width: 472px;
+  height: 54px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+
+  line-height: 1.375;
+  color: #121417;
+}
