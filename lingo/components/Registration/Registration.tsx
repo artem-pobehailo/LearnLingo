@@ -1,27 +1,48 @@
 import { useState } from 'react';
 import Button from '../Button/Button';
 import css from './Registration.module.css';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { registrationSchema } from '@/lib/validation/shema';
+import { registerUser } from '@/lib/Firebase/FirebaseAuth';
+import { User } from '@/types/user';
+type RegistrationFormValues = {
+  email: string;
+  password: string;
+  name: string;
+};
 
-export default function Registration() {
+type Props = {
+  onClose: () => void;
+  setUser: React.Dispatch<React.SetStateAction<User>>;
+};
+
+export default function Registration({ onClose, setUser }: Props) {
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = (formData: FormData) => {
-    const password = formData.get('password')?.toString().trim();
-    const email = formData.get('email')?.toString().trim();
-    const name = formData.get('name')?.toString().trim();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<RegistrationFormValues>({
+    resolver: yupResolver(registrationSchema),
+  });
 
-    if (!password || password.length < 2) {
-      alert('Enter valid password');
-      return;
+  const onSubmit = async (data: RegistrationFormValues) => {
+    try {
+      await registerUser(data.email, data.password, data.name);
+
+      const loggedUser = { name: data.name, email: data.email };
+      setUser(loggedUser);
+      localStorage.setItem('user', JSON.stringify(loggedUser));
+
+      alert(`User ${data.name} registred successfully!`);
+      onClose();
+    } catch (error: any) {
+      alert(error.message);
     }
-
-    if (!email || !email.includes('@')) {
-      alert('Enter valid email');
-      return;
-    }
-
-    console.log(password, email, name);
   };
+
   return (
     <div className={css.registration}>
       <h2 className={css.titel}>Registration</h2>
@@ -29,25 +50,25 @@ export default function Registration() {
         Thank you for your interest in our platform! In order to register, we
         need some information. Please provide us with the following information
       </p>
-      <form action={handleSubmit} className={css.form}>
+      <form onSubmit={handleSubmit(onSubmit)} className={css.form}>
         <label className={css.label}>
           <input
             className={css.inputl}
             type="text"
-            name="name"
             placeholder="Name"
-            required
+            {...register('name')}
           />
+          {errors.name && <p className={css.error}>{errors.name.message}</p>}
         </label>
 
         <label className={css.label}>
           <input
             className={css.inputl}
             type="email"
-            name="email"
             placeholder="Email"
-            required
+            {...register('email')}
           />
+          {errors.email && <p className={css.error}>{errors.email.message}</p>}
         </label>
 
         <label className={`${css.label} ${css.labelBut}`}>
@@ -55,10 +76,12 @@ export default function Registration() {
             <input
               className={css.inputl}
               type={showPassword ? 'text' : 'password'}
-              name="password"
               placeholder="Password"
-              required
+              {...register('password')}
             />
+            {errors.password && (
+              <p className={css.error}>{errors.password.message}</p>
+            )}
 
             <button
               type="button"
@@ -73,7 +96,12 @@ export default function Registration() {
           </div>
         </label>
 
-        <Button type="submit" variant="primary" text="Sign Up" />
+        <Button
+          type="submit"
+          variant="primary"
+          text={isSubmitting ? 'Loading...' : 'Sign Up'}
+          disabled={isSubmitting}
+        />
       </form>
     </div>
   );

@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 
 interface ModalProps {
   onClose: () => void;
-  // Додаємо пропс children і типізуємо його
+
   children: React.ReactNode;
 }
 
