@@ -13,10 +13,9 @@ type LoginFormValues = {
 };
 type Props = {
   onClose: () => void;
-  setUser: React.Dispatch<React.SetStateAction<User>>;
 };
 
-export default function LogIn({ onClose, setUser }: Props) {
+export default function LogIn({ onClose }: Props) {
   const [showPassword, setShowPassword] = useState(false);
 
   const {
@@ -30,15 +29,6 @@ export default function LogIn({ onClose, setUser }: Props) {
   const onSubmit = async (data: LoginFormValues) => {
     try {
       const user = await loginUser(data.email, data.password);
-
-      const loggedUser = {
-        name: user.displayName || ' ',
-        email: user.email || data.email,
-      };
-      setUser(loggedUser);
-      localStorage.setItem('user', JSON.stringify(loggedUser));
-
-      alert('Logged in successfully!');
       onClose();
     } catch (error: any) {
       alert(error.message);

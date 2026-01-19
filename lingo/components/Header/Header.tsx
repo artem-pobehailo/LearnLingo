@@ -9,6 +9,7 @@ import Modal from '../Modal/Modal';
 import LogIn from '../LogIn/LogIn';
 import Registration from '../Registration/Registration';
 import { User } from '@/types/user';
+import { logoutUser, onAuthChange } from '@/lib/Firebase/FirebaseAuth';
 
 export default function Header() {
   type ModalType = 'login' | 'registration' | null;
@@ -18,21 +19,24 @@ export default function Header() {
   const openRegistration = () => setModalType('registration');
   const closeModal = () => setModalType(null);
 
-  const [user, setUser] = useState<User>(() => {
-    if (typeof window === 'undefined') return null;
-    const savedUser = localStorage.getItem('user');
-    return savedUser ? JSON.parse(savedUser) : null;
-  });
+  const [user, setUser] = useState<User>(null);
+
   const pathname = usePathname();
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
-    const savedUser = localStorage.getItem('user');
-    if (savedUser) setUser(JSON.parse(savedUser));
-  }, []);
+    const unsubscribe = onAuthChange((firebaseUser) => {
+      if (firebaseUser) {
+        setUser({
+          name: firebaseUser.displayName,
+          email: firebaseUser.email,
+        });
+      } else {
+        setUser(null);
+      }
+    });
 
-  if (!mounted) return null;
+    return unsubscribe;
+  }, []);
 
   return (
     <header className={css.header}>
@@ -67,13 +71,7 @@ export default function Header() {
             <span className={css.headerLogin}>
               Hi, {user.name?.length ? user.name : user.email}
             </span>
-            <button
-              className={css.headerLogOut}
-              onClick={() => {
-                setUser(null);
-                localStorage.removeItem('user');
-              }}
-            >
+            <button className={css.headerLogOut} onClick={logoutUser}>
               Log out
             </button>
           </>
@@ -94,12 +92,12 @@ export default function Header() {
 
       {modalType === 'login' && (
         <Modal onClose={closeModal}>
-          <LogIn onClose={closeModal} setUser={setUser} />
+          <LogIn onClose={closeModal} />
         </Modal>
       )}
       {modalType === 'registration' && (
         <Modal onClose={closeModal}>
-          <Registration onClose={closeModal} setUser={setUser} />
+          <Registration onClose={closeModal} />
         </Modal>
       )}
     </header>

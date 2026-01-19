@@ -14,10 +14,9 @@ type RegistrationFormValues = {
 
 type Props = {
   onClose: () => void;
-  setUser: React.Dispatch<React.SetStateAction<User>>;
 };
 
-export default function Registration({ onClose, setUser }: Props) {
+export default function Registration({ onClose }: Props) {
   const [showPassword, setShowPassword] = useState(false);
 
   const {
@@ -32,11 +31,6 @@ export default function Registration({ onClose, setUser }: Props) {
     try {
       await registerUser(data.email, data.password, data.name);
 
-      const loggedUser = { name: data.name, email: data.email };
-      setUser(loggedUser);
-      localStorage.setItem('user', JSON.stringify(loggedUser));
-
-      alert(`User ${data.name} registred successfully!`);
       onClose();
     } catch (error: any) {
       alert(error.message);
