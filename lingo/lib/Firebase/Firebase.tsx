@@ -1,8 +1,11 @@
 import { initializeApp, getApps, getApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+import { Database, getDatabase } from 'firebase/database';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyAyu4eUpRqhrYS1fvDXFj5QLlKYvy35pA8',
   authDomain: 'learn-lingo-artem.firebaseapp.com',
+  databaseURL: 'https://learn-lingo-artem-default-rtdb.firebaseio.com',
   projectId: 'learn-lingo-artem',
   storageBucket: 'learn-lingo-artem.firebasestorage.app',
   messagingSenderId: '292869310420',
@@ -10,3 +13,7 @@ const firebaseConfig = {
 };
 
 export const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
+
+export const db = getDatabase(app);
+
+export const auth = getAuth(app);

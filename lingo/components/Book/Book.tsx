@@ -1,11 +1,7 @@
+import { Teacher } from '@/types/user';
 import Button from '../Button/Button';
 import Modal from '../Modal/Modal';
 import css from './Book.module.css';
-
-type Teacher = {
-  name: string;
-  avatar: string;
-};
 
 type Props = {
   teacher: Teacher;

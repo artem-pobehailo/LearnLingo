@@ -36,6 +36,14 @@ export default function Registration({ onClose }: Props) {
       alert(error.message);
     }
   };
+  //  } catch (error: unknown) {
+  //     if (error instanceof error) {
+  //       toast.error(error.message)
+  //     }
+  //     else
+  //     toast.error("Something went wrong");
+  //   }
+  // };
 
   return (
     <div className={css.registration}>

@@ -4,6 +4,7 @@ import './globals.css';
 
 import TanStackProvider from '@/components/TanStackProvider/TanStackProvider';
 import Header from '@/components/Header/Header';
+import { Toaster } from 'react-hot-toast';
 
 const geistSans = Roboto({
   variable: '--font-geist-sans',
@@ -31,6 +32,7 @@ export default function RootLayout({
           {' '}
           <Header />
           {children}
+          <Toaster position="top-right" />
         </TanStackProvider>
       </body>
     </html>

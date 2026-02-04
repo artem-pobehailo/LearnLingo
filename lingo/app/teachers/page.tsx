@@ -1,28 +1,28 @@
 'use client';
 import Filters from '@/components/Filter/Filter';
 import TeachersCard from '@/components/TeachersCard/TeachersCard';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import css from './page.module.css';
 import Button from '@/components/Button/Button';
+import { getTeachers } from '@/lib/clientApi';
+import { Teacher } from '@/types/user';
 
-const Teachers = [
-  { id: '1', name: 'Jane Smith' },
-  { id: '2', name: 'John Doe' },
-  { id: '3', name: 'Alice Johnson' },
-  { id: '4', name: 'Mark Brown' },
-];
-const TEACHERS_PER_PAGE = 2;
+const TEACHERS_PER_PAGE = 4;
 
 export default function TeachersPage() {
+  const [teachers, setTeachers] = useState<Teacher[]>([]);
   const [visibleCount, setVisibleCount] = useState(TEACHERS_PER_PAGE);
 
-  const visibleTeachers = Teachers.slice(0, visibleCount);
+  useEffect(() => {
+    getTeachers().then(setTeachers);
+  }, []);
+
+  const visibleTeachers = teachers.slice(0, visibleCount);
+  const hasMore = visibleCount < teachers.length;
 
   const handleLoadMore = () => {
     setVisibleCount((prev) => prev + TEACHERS_PER_PAGE);
   };
-
-  const hasMore = visibleCount < Teachers.length;
 
   return (
     <div className={css.teacherSection}>
@@ -31,7 +31,7 @@ export default function TeachersPage() {
       </div>
       <div className={css.teachersList}>
         {visibleTeachers.map((teacher) => (
-          <TeachersCard key={teacher.id} />
+          <TeachersCard key={teacher.id} teacher={teacher} />
         ))}
 
         {hasMore && (

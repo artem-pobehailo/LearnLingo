@@ -5,36 +5,14 @@ import css from './TeachersCard.module.css';
 import Button from '../Button/Button';
 import Modal from '../Modal/Modal';
 import Book from '../Book/Book';
+import { Teacher } from '@/types/user';
+import toast from 'react-hot-toast';
 
-const mockReviews = [
-  {
-    id: '1',
-    userName: 'Frank',
-    userAvatar: '/block.png',
-    rating: 4.0,
-    comment: "Jane's lessons were very helpful. I made good progress.",
-  },
-  {
-    id: '2',
-    userName: 'Anna',
-    userAvatar: '/block.png',
-    rating: 4.5,
-    comment: 'Very clear explanations and friendly atmosphere.',
-  },
-];
-
-const teacher = {
-  name: 'Jane Smith',
-  avatar: '/block.png',
-  levels: [
-    'A1 Beginner',
-    'A2 Elementary',
-    'B1 Intermediate',
-    'B2 Upper-Intermediate',
-  ],
+type Props = {
+  teacher: Teacher;
 };
 
-export default function TeachersCard() {
+export default function TeachersCard({ teacher }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [activeLevel, setActiveLevel] = useState<string | null>(null);
@@ -43,10 +21,27 @@ export default function TeachersCard() {
   const openModal = () => setIsModalOpen(true);
 
   const closeModal = () => setIsModalOpen(false);
+
+  const handleFavoriteClick = () => {
+    const isAuth =
+      typeof window !== 'undefined' && !!localStorage.getItem('user');
+
+    if (!isAuth) {
+      toast.error('This feature is available only for authorized users');
+      return;
+    }
+
+    setIsFavorite((prev) => !prev);
+  };
+
   return (
     <div className={css.card}>
       <div className={css.avatar}>
-        <img className={css.cardFoto} src="/block.png" alt="Foto Teachers" />
+        <img
+          className={css.cardFoto}
+          src={teacher?.avatar_url ?? '/placeholder.png'}
+          alt="Foto teacher"
+        />
         <svg className={css.iconFoto} width={12} height={12}>
           <use href="/sprite.svg#icon-Group-82"></use>
         </svg>
@@ -64,7 +59,8 @@ export default function TeachersCard() {
             </li>
             <li className={css.cardItem}>
               <p className={css.cardText}>
-                Lessons done: <span className={css.text}>1098</span>
+                Lessons done:{' '}
+                <span className={css.text}>{teacher.lessons_done}</span>
               </p>
             </li>
             <li className={css.cardItem}>
@@ -72,14 +68,14 @@ export default function TeachersCard() {
                 <use href="/sprite.svg#icon-Star-2"></use>
               </svg>
               <p className={css.cardText}>
-                Rating:<span className={css.cardText}>4.8</span>
+                Rating:<span className={css.cardText}>{teacher.rating}</span>
               </p>
             </li>
             <li className={css.cardItem}>
               <p className={css.cardText}>
                 Price / 1 hour:
                 <span className={`${css.cardText} ${css.cardTextGreen}`}>
-                  30$
+                  {teacher.price_per_hour}
                 </span>
               </p>
             </li>
@@ -87,7 +83,7 @@ export default function TeachersCard() {
           <button
             type="button"
             className={`${css.favoriteBtn} ${isFavorite ? css.isActive : ''}`}
-            onClick={() => setIsFavorite((prev) => !prev)}
+            onClick={handleFavoriteClick}
             aria-label="Add to favorites"
           >
             <svg className={css.favoriteIcon} width={26} height={26}>
@@ -96,29 +92,24 @@ export default function TeachersCard() {
           </button>
         </div>
         <div>
-          <h2 className={css.titelName}>Jane Smith</h2>
+          <h2 className={css.titelName}>
+            {teacher.name} {teacher.surname}
+          </h2>
           <div className={css.textCard}>
             <p className={`${css.cardText} ${css.cardTextGray}`}>
               Speaks:
               <span className={`${css.cardText} ${css.cardTextLine}`}>
-                {' '}
-                German, French
+                {teacher.languages.join(', ')}
               </span>
             </p>
             <p className={`${css.cardText} ${css.cardTextGray}`}>
               Lesson Info:
-              <span className={css.cardText}>
-                {' '}
-                Lessons are structured to cover grammar, vocabulary, and
-                practical usage of the language.
-              </span>
+              <span className={css.cardText}>{teacher.lesson_info}</span>
             </p>
             <p className={`${css.cardText} ${css.cardTextGray}`}>
               Conditions:
               <span className={css.cardText}>
-                {' '}
-                Welcomes both adult learners and teenagers (13 years and
-                above).Provides personalized study plans
+                {teacher.conditions.join(' ')}
               </span>
             </p>
           </div>
@@ -135,22 +126,12 @@ export default function TeachersCard() {
           {isOpen && (
             <div className={css.extraInfo}>
               <p className={`${css.cardText} ${css.cardTextMore}`}>
-                Jane is an experienced and dedicated language teacher
-                specializing in German and French. She holds a Bachelor's degree
-                in German Studies and a Master's degree in French Literature.
-                Her passion for languages and teaching has driven her to become
-                a highly proficient and knowledgeable instructor. With over 10
-                years of teaching experience, Jane has helped numerous students
-                of various backgrounds and proficiency levels achieve their
-                language learning goals. She is skilled at adapting her teaching
-                methods to suit the needs and learning styles of her students,
-                ensuring that they feel supported and motivated throughout their
-                language journey.
+                {teacher.experience}
               </p>
 
               <ul className={css.reviewsList}>
-                {mockReviews.map((review) => (
-                  <li key={review.id} className={css.reviewItem}>
+                {teacher.reviews.map((review, index) => (
+                  <li key={index} className={css.reviewItem}>
                     <div className={css.reviewItemDiv}>
                       <img
                         className={css.cardFotoReview}
@@ -159,21 +140,22 @@ export default function TeachersCard() {
                       />
                       <div className={css.cardFotoName}>
                         <p className={`${css.cardText} ${css.cardTextGray}`}>
-                          Frank
+                          {review.reviewer_name}
                         </p>
 
                         <div className={css.reviewReting}>
                           <svg className={css.iconlogo} width={16} height={16}>
                             <use href="/sprite.svg#icon-ukraine"></use>
                           </svg>
-                          <span className={css.text}>4.0</span>
+                          <span className={css.text}>
+                            {' '}
+                            {review.reviewer_rating}
+                          </span>
                         </div>
                       </div>
                     </div>
 
-                    <p className={css.cardText}>
-                      Jane's lessons were very helpful. I made good progress.
-                    </p>
+                    <p className={css.cardText}>{review.comment}</p>
                   </li>
                 ))}
               </ul>
@@ -193,12 +175,7 @@ export default function TeachersCard() {
         </div>
 
         <ul className={css.levelList}>
-          {[
-            'A1 Beginner',
-            'A2 Elementary',
-            'B1 Intermediate',
-            'B2 Upper-Intermediate',
-          ].map((level) => (
+          {teacher.levels.map((level) => (
             <li key={level}>
               <button
                 type="button"
