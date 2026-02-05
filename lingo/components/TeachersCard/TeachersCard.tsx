@@ -1,12 +1,18 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import css from './TeachersCard.module.css';
 import Button from '../Button/Button';
 import Modal from '../Modal/Modal';
 import Book from '../Book/Book';
 import { Teacher } from '@/types/user';
 import toast from 'react-hot-toast';
+import { useAuth } from '../utils/auth';
+import {
+  addFavorite,
+  getFavorites,
+  removeFavorite,
+} from '@/lib/Firebase/favorites';
 
 type Props = {
   teacher: Teacher;
@@ -18,20 +24,43 @@ export default function TeachersCard({ teacher }: Props) {
   const [activeLevel, setActiveLevel] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const { user, isAuth, loading } = useAuth();
+
   const openModal = () => setIsModalOpen(true);
 
   const closeModal = () => setIsModalOpen(false);
 
-  const handleFavoriteClick = () => {
-    const isAuth =
-      typeof window !== 'undefined' && !!localStorage.getItem('user');
+  useEffect(() => {
+    if (!isAuth || !user) return;
 
-    if (!isAuth) {
+    const loadFavorites = async () => {
+      const favs = await getFavorites(user.uid);
+      setIsFavorite(favs.includes(teacher.id));
+    };
+
+    loadFavorites();
+  }, [isAuth, user, teacher.id]);
+
+  const handleFavoriteClick = async () => {
+    if (loading) return;
+
+    if (!isAuth || !user) {
       toast.error('This feature is available only for authorized users');
       return;
     }
 
-    setIsFavorite((prev) => !prev);
+    try {
+      if (isFavorite) {
+        await removeFavorite(user.uid, teacher.id);
+        setIsFavorite(false);
+      } else {
+        await addFavorite(user.uid, teacher.id);
+        setIsFavorite(true);
+      }
+    } catch (error) {
+      toast.error('Something went wrong');
+      console.error(error);
+    }
   };
 
   return (
@@ -82,7 +111,9 @@ export default function TeachersCard({ teacher }: Props) {
           </ul>
           <button
             type="button"
-            className={`${css.favoriteBtn} ${isFavorite ? css.isActive : ''}`}
+            className={`${css.favoriteBtn} ${
+              isFavorite ? css.isActive : ''
+            } ${loading ? css.disabled : ''}`}
             onClick={handleFavoriteClick}
             aria-label="Add to favorites"
           >

@@ -8,9 +8,7 @@ import {
   updateProfile,
 } from 'firebase/auth';
 
-import { app } from './Firebase';
-
-export const auth = getAuth(app);
+import { auth } from './Firebase';
 
 export const registerUser = async (
   email: string,

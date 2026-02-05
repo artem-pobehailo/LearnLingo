@@ -117,6 +117,10 @@
   stroke-width: 1px;
   stroke: #f4c550;
 }
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 
 .titelName {
   font-family: 'Roboto', sans-serif;
