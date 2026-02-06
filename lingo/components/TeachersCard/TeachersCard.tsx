@@ -31,7 +31,7 @@ export default function TeachersCard({ teacher }: Props) {
   const closeModal = () => setIsModalOpen(false);
 
   useEffect(() => {
-    if (!isAuth || !user) return;
+    if (loading || !user) return;
 
     const loadFavorites = async () => {
       const favs = await getFavorites(user.uid);
@@ -39,12 +39,11 @@ export default function TeachersCard({ teacher }: Props) {
     };
 
     loadFavorites();
-  }, [isAuth, user, teacher.id]);
+  }, [user, loading, teacher.id]);
 
   const handleFavoriteClick = async () => {
     if (loading) return;
-
-    if (!isAuth || !user) {
+    if (!user) {
       toast.error('This feature is available only for authorized users');
       return;
     }
@@ -111,6 +110,7 @@ export default function TeachersCard({ teacher }: Props) {
           </ul>
           <button
             type="button"
+            disabled={loading}
             className={`${css.favoriteBtn} ${
               isFavorite ? css.isActive : ''
             } ${loading ? css.disabled : ''}`}
@@ -148,9 +148,9 @@ export default function TeachersCard({ teacher }: Props) {
             <button
               className={css.cardButton}
               aria-expanded={isOpen}
-              onClick={() => setIsOpen(true)}
+              onClick={() => setIsOpen((prev) => !prev)}
             >
-              Read more
+              {isOpen ? 'Hide details' : 'Read more'}
             </button>
           )}
 
@@ -161,8 +161,8 @@ export default function TeachersCard({ teacher }: Props) {
               </p>
 
               <ul className={css.reviewsList}>
-                {teacher.reviews.map((review, index) => (
-                  <li key={index} className={css.reviewItem}>
+                {teacher.reviews.map((review) => (
+                  <li key={review.reviewer_name} className={css.reviewItem}>
                     <div className={css.reviewItemDiv}>
                       <img
                         className={css.cardFotoReview}
