@@ -191,35 +191,65 @@ export default function TeachersCard({ teacher }: Props) {
                 ))}
               </ul>
 
-              <Button
-                variant="primary"
-                text="Book trial lesson"
-                onClick={openModal}
-              />
-              {isModalOpen && (
+              {/* {isModalOpen && (
                 <Modal onClose={closeModal}>
                   <Book teacher={teacher} />
                 </Modal>
-              )}
+              )} */}
             </div>
           )}
         </div>
 
-        <ul className={css.levelList}>
-          {teacher.levels.map((level) => (
-            <li key={level}>
-              <button
-                type="button"
-                className={`${css.levelButton} ${
-                  activeLevel === level ? css.levelButtonActive : ''
-                }`}
-                onClick={() => setActiveLevel(level)}
-              >
-                #{level}
-              </button>
-            </li>
-          ))}
-        </ul>
+        {!isOpen ? (
+          <ul className={css.levelList}>
+            {teacher.levels.map((level) => (
+              <li key={level}>
+                <button
+                  type="button"
+                  className={`${css.levelButton} ${
+                    activeLevel === level ? css.levelButtonActive : ''
+                  }`}
+                  onClick={() => setActiveLevel(level)}
+                >
+                  #{level}
+                </button>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div className={css.extraInfo}>
+            <ul className={css.levelList}>
+              {teacher.levels.map((level) => (
+                <li key={level}>
+                  <button
+                    type="button"
+                    className={`${css.levelButton} ${
+                      activeLevel === level ? css.levelButtonActive : ''
+                    }`}
+                    onClick={() => setActiveLevel(level)}
+                  >
+                    #{level}
+                  </button>
+                </li>
+              ))}
+            </ul>
+
+            <Button
+              variant="primary"
+              text="Book trial lesson"
+              onClick={openModal}
+            />
+            {isModalOpen && (
+              <Modal onClose={closeModal}>
+                <Book
+                  teacher={teacher}
+                  selectedLevel={activeLevel}
+                  onClose={closeModal}
+                />
+              </Modal>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
