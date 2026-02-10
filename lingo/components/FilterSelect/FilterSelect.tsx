@@ -12,6 +12,7 @@ type Props = {
   label: string;
   options: Option[];
   placeholder: string;
+  onChange: (option: Option | null) => void;
 };
 
 const DropdownIndicator = (props: DropdownIndicatorProps<Option, false>) => {
@@ -39,7 +40,12 @@ const DropdownIndicator = (props: DropdownIndicatorProps<Option, false>) => {
   );
 };
 
-export default function FilterSelect({ label, options, placeholder }: Props) {
+export default function FilterSelect({
+  label,
+  options,
+  placeholder,
+  onChange,
+}: Props) {
   return (
     <div className={css.filterLabelWraper}>
       <label className={css.filterLabel}>{label}</label>
@@ -47,6 +53,7 @@ export default function FilterSelect({ label, options, placeholder }: Props) {
         options={options}
         placeholder={placeholder}
         isSearchable={false}
+        onChange={onChange}
         classNamePrefix="filter"
         menuPortalTarget={
           typeof document !== 'undefined' ? document.body : null

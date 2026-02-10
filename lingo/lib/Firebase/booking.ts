@@ -7,7 +7,7 @@ export type BookingData = {
   email: string;
   phone: string;
   reason: string;
-  level: string | null;
+  level: string;
   createdAt: number;
 };
 
