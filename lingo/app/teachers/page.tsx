@@ -6,6 +6,7 @@ import css from './page.module.css';
 import Button from '@/components/Button/Button';
 import { getTeachers } from '@/lib/clientApi';
 import { Teacher } from '@/types/user';
+import ErrorMessage from '@/components/ErrorMessage/ErrorMessage';
 
 type FiltersState = {
   language: string | null;
@@ -93,9 +94,13 @@ export default function TeachersPage() {
         />
       </div>
       <div className={css.teachersList}>
-        {visibleTeachers.map((teacher) => (
-          <TeachersCard key={teacher.id} teacher={teacher} />
-        ))}
+        {visibleTeachers.length > 0 ? (
+          visibleTeachers.map((teacher) => (
+            <TeachersCard key={teacher.id} teacher={teacher} />
+          ))
+        ) : (
+          <ErrorMessage message="No teachers found for selected filters." />
+        )}
 
         {hasMore && (
           <div className={css.buttonCard}>
