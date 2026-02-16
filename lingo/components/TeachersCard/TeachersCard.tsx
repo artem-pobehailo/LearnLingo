@@ -191,11 +191,7 @@ export default function TeachersCard({ teacher }: Props) {
                 ))}
               </ul>
 
-              {/* {isModalOpen && (
-                <Modal onClose={closeModal}>
-                  <Book teacher={teacher} />
-                </Modal>
-              )} */}
+            
             </div>
           )}
         </div>

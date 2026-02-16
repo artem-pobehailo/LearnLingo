@@ -1,5 +1,3 @@
-/* src/components/Modal.module.css */
-
 .backdrop {
   position: fixed;
   top: 0;
@@ -11,6 +9,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow-y: auto;
+  padding: 24px;
 }
 
 .modal {
@@ -20,8 +20,8 @@
   border-radius: 8px;
   background-color: #fff;
   padding: 24px;
+  overflow-y: auto;
 }
-/* Modal.module.css */
 
 .closeButton {
   position: absolute;
