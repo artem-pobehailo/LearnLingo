@@ -7,6 +7,7 @@ import Button from '@/components/Button/Button';
 import { getTeachers } from '@/lib/clientApi';
 import { Teacher } from '@/types/user';
 import ErrorMessage from '@/components/ErrorMessage/ErrorMessage';
+import Loader from '@/components/Loader/Loader';
 
 type FiltersState = {
   language: string | null;
@@ -25,8 +26,14 @@ export default function TeachersPage() {
     price: null,
   });
 
+  const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
   useEffect(() => {
-    getTeachers().then(setTeachers);
+    setLoading(true);
+    getTeachers().then((data) => {
+      setTeachers(data);
+      setLoading(false);
+    });
   }, []);
 
   useEffect(() => {
@@ -76,8 +83,16 @@ export default function TeachersPage() {
   const hasMore = visibleCount < filteredTeachers.length;
 
   const handleLoadMore = () => {
-    setVisibleCount((prev) => prev + TEACHERS_PER_PAGE);
+    setLoadingMore(true);
+    setTimeout(() => {
+      setVisibleCount((prev) => prev + TEACHERS_PER_PAGE);
+      setLoadingMore(false);
+    }, 500);
   };
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div className={css.teacherSection}>
@@ -106,7 +121,7 @@ export default function TeachersPage() {
           <div className={css.buttonCard}>
             <Button
               variant="primary"
-              text="Load more"
+              text={loadingMore ? 'Loading...' : 'Load more'}
               onClick={handleLoadMore}
             />
           </div>
