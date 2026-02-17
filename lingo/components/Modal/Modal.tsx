@@ -29,6 +29,7 @@ export default function Modal({ onClose, children }: ModalProps) {
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
     };
   }, [onClose]);
 
