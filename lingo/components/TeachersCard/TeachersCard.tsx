@@ -128,17 +128,17 @@ export default function TeachersCard({ teacher }: Props) {
           </h2>
           <div className={css.textCard}>
             <p className={`${css.cardText} ${css.cardTextGray}`}>
-              Speaks:
+              Speaks:{' '}
               <span className={`${css.cardText} ${css.cardTextLine}`}>
                 {teacher.languages.join(', ')}
               </span>
             </p>
             <p className={`${css.cardText} ${css.cardTextGray}`}>
-              Lesson Info:
+              Lesson Info:{' '}
               <span className={css.cardText}>{teacher.lesson_info}</span>
             </p>
             <p className={`${css.cardText} ${css.cardTextGray}`}>
-              Conditions:
+              Conditions:{' '}
               <span className={css.cardText}>
                 {teacher.conditions.join(' ')}
               </span>
@@ -190,8 +190,6 @@ export default function TeachersCard({ teacher }: Props) {
                   </li>
                 ))}
               </ul>
-
-            
             </div>
           )}
         </div>
