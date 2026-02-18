@@ -3,7 +3,7 @@ import { getAuth } from 'firebase/auth';
 import { Database, getDatabase } from 'firebase/database';
 
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: 'learn-lingo-artem.firebaseapp.com',
   databaseURL: 'https://learn-lingo-artem-default-rtdb.firebaseio.com',
   projectId: 'learn-lingo-artem',
