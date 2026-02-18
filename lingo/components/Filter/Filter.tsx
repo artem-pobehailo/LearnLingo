@@ -45,19 +45,25 @@ export default function Filters({
         label="Languages"
         options={languageOptions}
         placeholder="Select language"
-        onChange={(option) => onLanguageChange(option?.value ?? null)}
+        onChange={(option) =>
+          onLanguageChange(option?.value != null ? String(option.value) : null)
+        }
       />
       <FilterSelect
         label="Level"
         options={levelOptions}
         placeholder="Select level"
-        onChange={(option) => onLevelChange(option?.value ?? null)}
+        onChange={(option) =>
+          onLevelChange(option?.value != null ? String(option.value) : null)
+        }
       />
       <FilterSelect
         label="Price"
         options={priceOptions}
         placeholder="Select price"
-        onChange={(option) => onPriceChange(option?.value ?? null)}
+        onChange={(option) =>
+          onPriceChange(option?.value != null ? Number(option.value) : null)
+        }
       />
     </div>
   );
