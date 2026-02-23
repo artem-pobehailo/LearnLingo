@@ -62,6 +62,16 @@ export default function Header() {
               Teachers
             </Link>
           </li>
+          {user && (
+            <li>
+              <Link
+                href="/favourites"
+                className={pathname === '/favourites' ? css.active : ''}
+              >
+                Favourites
+              </Link>
+            </li>
+          )}
         </ul>
       </nav>
 
