@@ -31,7 +31,12 @@ export default function TeachersCard({ teacher }: Props) {
   const closeModal = () => setIsModalOpen(false);
 
   useEffect(() => {
-    if (loading || !user) return;
+    if (loading) return;
+
+    if (!user) {
+      setIsFavorite(false);
+      return;
+    }
 
     const loadFavorites = async () => {
       const favs = await getFavorites(user.uid);
@@ -61,7 +66,14 @@ export default function TeachersCard({ teacher }: Props) {
       console.error(error);
     }
   };
+  const handleBookClick = () => {
+    if (!activeLevel) {
+      toast.error('Please select level first');
+      return;
+    }
 
+    setIsModalOpen(true);
+  };
   return (
     <div className={css.card}>
       <div className={css.avatar}>
@@ -70,7 +82,7 @@ export default function TeachersCard({ teacher }: Props) {
           src={teacher?.avatar_url ?? '/placeholder.png'}
           alt="Foto teacher"
         />
-        <svg className={css.iconFoto} width={12} height={12}>
+        <svg className={css.iconFoto} width={24} height={24}>
           <use href="/sprite.svg#icon-Group-82"></use>
         </svg>
       </div>
@@ -87,7 +99,7 @@ export default function TeachersCard({ teacher }: Props) {
             </li>
             <li className={css.cardItem}>
               <p className={css.cardText}>
-                Lessons done:{' '}
+                Lessons done:
                 <span className={css.text}>{teacher.lessons_done}</span>
               </p>
             </li>
@@ -96,14 +108,14 @@ export default function TeachersCard({ teacher }: Props) {
                 <use href="/sprite.svg#icon-Star-2"></use>
               </svg>
               <p className={css.cardText}>
-                Rating:<span className={css.cardText}>{teacher.rating}</span>
+                Rating:<span className={css.text}>{teacher.rating}</span>
               </p>
             </li>
             <li className={css.cardItem}>
               <p className={css.cardText}>
                 Price / 1 hour:
-                <span className={`${css.cardText} ${css.cardTextGreen}`}>
-                  {teacher.price_per_hour}
+                <span className={`${css.text} ${css.cardTextGreen}`}>
+                  {teacher.price_per_hour}$
                 </span>
               </p>
             </li>
@@ -128,18 +140,20 @@ export default function TeachersCard({ teacher }: Props) {
           </h2>
           <div className={css.textCard}>
             <p className={`${css.cardText} ${css.cardTextGray}`}>
-              Speaks:{' '}
-              <span className={`${css.cardText} ${css.cardTextLine}`}>
+              Speaks:
+              <span className={`${css.text} ${css.cardTextLine}`}>
                 {teacher.languages.join(', ')}
               </span>
             </p>
             <p className={`${css.cardText} ${css.cardTextGray}`}>
-              Lesson Info:{' '}
-              <span className={css.cardText}>{teacher.lesson_info}</span>
+              Lesson Info:
+              <span className={`${css.cardText} ${css.text}`}>
+                {teacher.lesson_info}
+              </span>
             </p>
             <p className={`${css.cardText} ${css.cardTextGray}`}>
-              Conditions:{' '}
-              <span className={css.cardText}>
+              Conditions:
+              <span className={`${css.cardText} ${css.text}`}>
                 {teacher.conditions.join(' ')}
               </span>
             </p>
@@ -179,7 +193,6 @@ export default function TeachersCard({ teacher }: Props) {
                             <use href="/sprite.svg#icon-ukraine"></use>
                           </svg>
                           <span className={css.text}>
-                            {' '}
                             {review.reviewer_rating}
                           </span>
                         </div>
@@ -231,7 +244,7 @@ export default function TeachersCard({ teacher }: Props) {
             <Button
               variant="primary"
               text="Book trial lesson"
-              onClick={openModal}
+              onClick={handleBookClick}
             />
             {isModalOpen && (
               <Modal onClose={closeModal}>

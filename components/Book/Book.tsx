@@ -33,7 +33,6 @@ export default function Book({ teacher, selectedLevel, onClose }: Props) {
       return;
     }
     if (!selectedLevel) {
-      toast.error('Select level first');
       return;
     }
 
@@ -97,19 +96,19 @@ export default function Book({ teacher, selectedLevel, onClose }: Props) {
 
             <li className={css.item}>
               <label>
-                <input type="radio" name="reason" value="kids" />
+                <input type="radio" name="reason" value="kids" required />
                 Lesson for kids
               </label>
             </li>
             <li className={css.item}>
               <label>
-                <input type="radio" name="reason" value="abroad" />
+                <input type="radio" name="reason" value="abroad" required />
                 Living abroad
               </label>
             </li>
             <li className={css.item}>
               <label>
-                <input type="radio" name="reason" value="exams" />
+                <input type="radio" name="reason" value="exams" required />
                 Exams and coursework
               </label>
             </li>
@@ -144,7 +143,7 @@ export default function Book({ teacher, selectedLevel, onClose }: Props) {
           <label className={css.label}>
             <input
               className={css.inputl}
-              type="phone"
+              type="tel"
               name="phone"
               placeholder="Phone number"
               required

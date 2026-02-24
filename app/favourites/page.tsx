@@ -7,6 +7,7 @@ import TeachersCard from '@/components/TeachersCard/TeachersCard';
 import { getFavorites } from '@/lib/Firebase/favorites';
 import { getCurrentUser } from '@/lib/Firebase/FirebaseAuth';
 import Loader from '@/components/Loader/Loader';
+import css from '../teachers/page.module.css';
 
 export default function FavouritesPage() {
   const [teachers, setTeachers] = useState<Teacher[]>([]);
@@ -38,13 +39,18 @@ export default function FavouritesPage() {
   }, []);
 
   if (loading) return <Loader />;
-  if (!teachers.length) return <p>No favourite teachers yet</p>;
 
   return (
-    <div>
-      {teachers.map((teacher) => (
-        <TeachersCard key={teacher.id} teacher={teacher} />
-      ))}
+    <div className={css.teacherSection}>
+      <div className={css.teachersList}>
+        {teachers.length > 0 ? (
+          teachers.map((teacher) => (
+            <TeachersCard key={teacher.id} teacher={teacher} />
+          ))
+        ) : (
+          <p className={css.emptyText}>No favourite teachers yet</p>
+        )}
+      </div>
     </div>
   );
 }
