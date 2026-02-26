@@ -8,12 +8,31 @@ import { getFavorites } from '@/lib/Firebase/favorites';
 import { getCurrentUser } from '@/lib/Firebase/FirebaseAuth';
 import Loader from '@/components/Loader/Loader';
 import css from '../teachers/page.module.css';
+import { useAuth } from '@/components/utils/auth';
+import Button from '@/components/Button/Button';
 
 export default function FavouritesPage() {
+  const { user, loading: authUser } = useAuth();
+
   const [teachers, setTeachers] = useState<Teacher[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const TEACHERS_PER_PAGE = 4;
+  const [visibleCount, setVisibleCount] = useState(TEACHERS_PER_PAGE);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const visibleTeachers = teachers.slice(0, visibleCount);
+  const hasMore = visibleCount < teachers.length;
+  const handleLoadMore = () => {
+    setLoadingMore(true);
+    setTimeout(() => {
+      setVisibleCount((prev) => prev + TEACHERS_PER_PAGE);
+      setLoadingMore(false);
+    }, 500);
+  };
+
   useEffect(() => {
+    if (authUser) return;
+
     async function load() {
       const user = getCurrentUser();
       if (!user) {
@@ -36,21 +55,41 @@ export default function FavouritesPage() {
     }
 
     load();
-  }, []);
+  }, [user, authUser]);
+
+  useEffect(() => {
+    setVisibleCount(TEACHERS_PER_PAGE);
+  }, [teachers]);
 
   if (loading) return <Loader />;
 
   return (
     <div className={css.teacherSection}>
       <div className={css.teachersList}>
-        {teachers.length > 0 ? (
-          teachers.map((teacher) => (
-            <TeachersCard key={teacher.id} teacher={teacher} />
+        {visibleTeachers.length > 0 ? (
+          visibleTeachers.map((teacher) => (
+            <TeachersCard
+              key={teacher.id}
+              teacher={teacher}
+              onUnfavorite={() =>
+                setTeachers((prev) => prev.filter((t) => t.id !== teacher.id))
+              }
+            />
           ))
         ) : (
           <p className={css.emptyText}>No favourite teachers yet</p>
-        )}
+        )}{' '}
       </div>
+
+      {hasMore && (
+        <div className={css.buttonCard}>
+          <Button
+            variant="primary"
+            text={loadingMore ? 'Loading...' : 'Load more'}
+            onClick={handleLoadMore}
+          />
+        </div>
+      )}
     </div>
   );
 }

@@ -16,9 +16,10 @@ import {
 
 type Props = {
   teacher: Teacher;
+  onUnfavorite?: () => void;
 };
 
-export default function TeachersCard({ teacher }: Props) {
+export default function TeachersCard({ teacher, onUnfavorite }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [activeLevel, setActiveLevel] = useState<string | null>(null);
@@ -57,6 +58,7 @@ export default function TeachersCard({ teacher }: Props) {
       if (isFavorite) {
         await removeFavorite(user.uid, teacher.id);
         setIsFavorite(false);
+        onUnfavorite?.();
       } else {
         await addFavorite(user.uid, teacher.id);
         setIsFavorite(true);
