@@ -5,7 +5,7 @@ import { getTeachers } from '@/lib/clientApi';
 import { Teacher } from '@/types/user';
 import TeachersCard from '@/components/TeachersCard/TeachersCard';
 import { getFavorites } from '@/lib/Firebase/favorites';
-import { getCurrentUser } from '@/lib/Firebase/FirebaseAuth';
+
 import Loader from '@/components/Loader/Loader';
 import css from '../teachers/page.module.css';
 import { useAuth } from '@/components/utils/auth';
@@ -34,7 +34,6 @@ export default function FavouritesPage() {
     if (authUser) return;
 
     async function load() {
-      const user = getCurrentUser();
       if (!user) {
         setTeachers([]);
         setLoading(false);

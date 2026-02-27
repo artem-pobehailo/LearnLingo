@@ -5,6 +5,7 @@
   padding: 24px 0;
   gap: 48px;
   background: #fff;
+  padding-left: 24px;
 }
 .avatar {
   position: relative;

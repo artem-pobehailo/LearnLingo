@@ -25,7 +25,7 @@ export default function TeachersCard({ teacher, onUnfavorite }: Props) {
   const [activeLevel, setActiveLevel] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { user, isAuth, loading } = useAuth();
+  const { user, loading } = useAuth();
 
   const openModal = () => setIsModalOpen(true);
 
@@ -41,7 +41,7 @@ export default function TeachersCard({ teacher, onUnfavorite }: Props) {
 
     const loadFavorites = async () => {
       const favs = await getFavorites(user.uid);
-      setIsFavorite(favs.includes(teacher.id));
+      setIsFavorite(favs.includes(String(teacher.id)));
     };
 
     loadFavorites();
