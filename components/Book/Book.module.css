@@ -1,12 +1,10 @@
 .bookModal {
   display: flex;
   width: 600px;
+
   flex-direction: column;
   justify-content: center;
   padding: 64px;
-}
-.modal {
-  margin-bottom: 40px;
 }
 
 .titel {
@@ -130,4 +128,10 @@
 
   line-height: 1.375;
   color: #121417;
+}
+.form label:last-of-type + button {
+  margin-top: 22px;
+}
+.selectedLevel {
+  padding-bottom: 12px;
 }

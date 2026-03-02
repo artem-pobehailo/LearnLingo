@@ -17,9 +17,9 @@
   position: relative;
   max-width: 90vw;
   max-height: 90vh;
-  border-radius: 8px;
+  border-radius: 30px;
   background-color: #fff;
-  padding: 24px;
+
   overflow-y: auto;
 }
 

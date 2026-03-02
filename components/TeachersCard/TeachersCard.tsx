@@ -192,10 +192,10 @@ export default function TeachersCard({ teacher, onUnfavorite }: Props) {
 
                         <div className={css.reviewReting}>
                           <svg className={css.iconlogo} width={16} height={16}>
-                            <use href="/sprite.svg#icon-ukraine"></use>
+                            <use href="/sprite.svg#icon-Star-2"></use>
                           </svg>
                           <span className={css.text}>
-                            {review.reviewer_rating}
+                            {Number(review.reviewer_rating).toFixed(1)}
                           </span>
                         </div>
                       </div>
