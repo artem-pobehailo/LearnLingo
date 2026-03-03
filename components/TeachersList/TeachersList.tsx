@@ -11,7 +11,7 @@ export default function TeachersList() {
   useEffect(() => {
     getTeachers().then(setTeachers);
   }, []);
-  console.log(teachers);
+  
 
   return (
     <div>

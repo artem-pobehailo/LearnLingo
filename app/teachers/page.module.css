@@ -3,6 +3,7 @@
   width: 1440px;
 
   margin: 0 auto;
+  padding-bottom: 96px;
 }
 .filtersCard {
   margin-left: 100px;
@@ -11,7 +12,7 @@
 .buttonCard {
   display: flex;
   justify-content: center;
-  margin-top: 64px;
+  margin-top: 11px;
 }
 
 .emptyText {
@@ -23,4 +24,10 @@
   color: #121417;
   text-align: center;
   margin-top: 100px;
+}
+
+.teachersList {
+  display: flex;
+  flex-direction: column;
+  gap: 53px;
 }
